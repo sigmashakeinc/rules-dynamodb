@@ -6,7 +6,7 @@ rule dynamodb-block-unsafe-patterns {
   priority 90
   severity error
   DENY write
-  IF path GLOB "**/*" AND content CONTAINS "UNSAFE_dynamodb_PATTERN"
+  IF path GLOB "**/*" AND content CONTAINS "Scan"
   MESSAGE "Blocked an unsafe pattern in dynamodb. Use the recommended best practices for 2025/2026."
 }
 
@@ -14,7 +14,7 @@ rule dynamodb-force-updated-api {
   enabled true
   priority 80
   severity warning
-  ASK write
-  IF path GLOB "**/*" AND content CONTAINS "OLD_dynamodb_API"
+  LOG write
+  IF path GLOB "**/*" AND content CONTAINS "Expected"
   MESSAGE "You are using an outdated API for dynamodb. Please upgrade to the newer API."
 }
